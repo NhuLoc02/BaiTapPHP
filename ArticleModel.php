@@ -1,5 +1,6 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
 class ArticleModel
 {
     private $mysqli;
@@ -21,28 +22,28 @@ class ArticleModel
 
         return $articles;
     }
-    // public function addArticle ($article)
-    // {
-    //     $article=[];
-    //     $sql= "insert into article(article_id, article_author, article_title, article_summary, article_content, article_image, article_date, article_status) values";
-    //     $valueStrings= array();
-    //     foreach ($article as $row) {
-    //         $values= implode(",", array_map(function($value){
-    //             return "'".$this->conn->real_escape_string($value)."'";
-    //         }, $row));
-    //         $valueStrings[]="({$value})";
-    //     }
-    //     $sql.= implode(",", $valueStrings);
-    //     if (!empty($valueStrings)) {
-    //         $result= $this->conn->query($sql);
-    //         if ($result) {
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     }
-    //     return false;
-    // }
+    public function addArticle ($article)
+    {
+        $article=[];
+        $sql= "insert into article(article_id, article_author, article_title, article_summary, article_content, article_image, article_date, article_status) values";
+        $valueStrings= array();
+        foreach ($article as $row) {
+            $values= implode(",", array_map(function($value){
+                return "'".$this->conn->real_escape_string($value)."'";
+            }, $row));
+            $valueStrings[]="({$value})";
+        }
+        $sql.= implode(",", $valueStrings);
+        if (!empty($valueStrings)) {
+            $result= $this->conn->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
     public function deleteArticle($articleId)
     {
         $sql_delete_article = "DELETE FROM article WHERE article_id = $articleId";
