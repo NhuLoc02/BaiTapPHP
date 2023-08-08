@@ -7,7 +7,6 @@ if ($mysqli->connect_errno) {
 }
 
 require_once './models/ArticleModel.php';
-
 class ArticleController
 {
     private $model;
@@ -35,7 +34,6 @@ class ArticleController
             'article_status'=> ''
         ];
         $insertIntoArticle= $this->model->addArticle($article);
-
     }
 
     public function editArticle($articleId)
