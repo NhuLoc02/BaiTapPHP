@@ -83,11 +83,13 @@
         }
         elseif ($action == 'article' && $query == 'article_add') {
             require_once 'views/ArticleAddView.php';
-            require_once 'controllers/ArticleController.php';
+            
+        } 
+        elseif ($action == 'article' && $query == 'article_add2') {
+        require_once 'controllers/ArticleController.php';
             $articleController = new ArticleController();
             // Call the addArticle method on the created object
-            $articleController->addArticle();
-        }
+            $articleController->addArticle(); }
         elseif($action =='article' && $query == 'article_list') {
             include("./controllers/ArticleController.php");
         }
