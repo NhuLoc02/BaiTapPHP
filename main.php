@@ -108,13 +108,18 @@
             $articleController->editArticle();
         } 
         elseif($action =='brand' && $query == 'brand_list') {
-            include("./modules/brand/lietke.php");
+            include("./controllers/BrandController.php");
         }
         elseif($action =='brand' && $query == 'brand_add') {
-            include("./modules/brand/them.php");
+            
+        }
+        elseif($action =='brand' && $query == 'brand_edit2') {
+            require_once ("./views/BrandEditView.php");
         }
         elseif($action =='brand' && $query == 'brand_edit') {
-            include("./modules/brand/sua.php");
+            require_once ("./controllers/BrandController.php");
+            $brandController = new BrandController();
+            $brandController -> brandEdit($brandId);
         }
         elseif($action =='customer' && $query == 'customer_list') {
             include("./modules/customer/lietke.php");
