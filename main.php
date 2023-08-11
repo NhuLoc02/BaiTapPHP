@@ -40,19 +40,11 @@
             include("./modules/category/them.php");
         }
         elseif($action =='category' && $query == 'category_list') {
-            include("./controllers/CategoryController.php");
+            include("./modules/category/lietke.php");
         }
         elseif($action =='category' && $query == 'category_edit') {
             include("./modules/category/sua.php");
         } 
-        elseif ($action == 'category' && $query == 'category_delete') {
-            require_once 'controllers/CategoryController.php';
-            $categoryController = new CategoryController();
-            $checkedIds = !empty($_GET['checked_ids']) ? json_decode($_GET['checked_ids']) : [];
-            foreach ($checkedIds as $categoryId) {
-                $categoryController->deleteCategory($categoryId);
-            }
-        }
         elseif($action =='collection' && $query == 'collection_add') {
             include("./modules/collection/them.php");
         }
@@ -117,17 +109,17 @@
         } 
         elseif($action =='brand' && $query == 'brand_list') {
             include("./controllers/BrandController.php");
+            $brandController = new BrandController();
+            $brandController->brandList($brandModel);
         }
         elseif($action =='brand' && $query == 'brand_add') {
             
         }
-        elseif($action =='brand' && $query == 'brand_edit2') {
-            require_once ("./views/BrandEditView.php");
-        }
-        elseif($action =='brand' && $query == 'brand_edit') {
+        elseif($action =='brand' && $query == 'brand_edit_ahihi') {
+            
             require_once ("./controllers/BrandController.php");
             $brandController = new BrandController();
-            $brandController -> brandEdit($brandId);
+            $brandController->brandEdit($brandId, $brandName, $brandModel);
         }
         elseif($action =='customer' && $query == 'customer_list') {
             include("./modules/customer/lietke.php");
