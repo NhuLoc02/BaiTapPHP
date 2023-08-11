@@ -1,5 +1,4 @@
 
-
 <div class="row">
     <div class="col">
         <div class="header__list d-flex space-between align-center">
@@ -36,28 +35,36 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <form method="POST" action="controllers/BrandController.php">
                             <?php
                             $i = 0;
-                            foreach ($brands as $row) {
+                            if (isset($brands)) { // Check if $brands variable is defined
+                                foreach ($brands as $row) {
                                 $i++;
                             ?>
                                 <tr>
                                     <td>
-                                        <a href="?action=brand&query=brand_edit&brand_id=<?php echo $row['brand_id'] ?>">
+                                        <a href="index.php?action=brand&query=brand_edit_ahihi&brand_id=<?php echo $row['brand_id'] ?>">
                                             <div class="icon-edit">
-                                                <img="w-100 h-100" src="images/icon-edit.png" alt="">
+                                            <img class="w-100 h-100" src="images/icon-edit.png" alt="">
                                             </div>
                                         </a>
                                     </td>
                                     <td>
-                                        <input type="checkbox" class="checkbox" onclick="testChecked();" id="<?php echo $row['brand_name'] ?>">
+                                        <input type="checkbox" class="checkbox" onclick="testChecked();" id="<?php echo $row['brand_id'] ?>">
                                     </td>
                                     <td><?php echo $row['brand_id'] ?></td>
                                     <td><?php echo $row['brand_name'] ?></td>
                                 </tr>
+                            
                             <?php
                             }
- ?>
+                            }
+                            else {
+                                echo "No brands found."; // Display a message if $brands is not defined or empty
+                            }
+                        
+                        ?>
                         </tbody>
                     </table>
                 </div>
