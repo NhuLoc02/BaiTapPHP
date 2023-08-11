@@ -58,7 +58,9 @@
             include("./modules/product/them.php");
         }
         elseif($action =='product' && $query == 'product_list') {
-            include("./modules/product/lietke.php");
+            include("./controllers/ProductController.php");
+            $productController = new ProductController();
+            $productController->productList($productModel);
         }
         elseif($action =='product' && $query == 'product_edit') {
             include("./modules/product/sua.php");
