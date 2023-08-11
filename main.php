@@ -40,11 +40,19 @@
             include("./modules/category/them.php");
         }
         elseif($action =='category' && $query == 'category_list') {
-            include("./modules/category/lietke.php");
+            include("./controllers/CategoryController.php");
         }
         elseif($action =='category' && $query == 'category_edit') {
             include("./modules/category/sua.php");
         } 
+        elseif ($action == 'category' && $query == 'category_delete') {
+            require_once 'controllers/CategoryController.php';
+            $categoryController = new CategoryController();
+            $checkedIds = !empty($_GET['checked_ids']) ? json_decode($_GET['checked_ids']) : [];
+            foreach ($checkedIds as $categoryId) {
+                $categoryController->deleteCategory($categoryId);
+            }
+        }
         elseif($action =='collection' && $query == 'collection_add') {
             include("./modules/collection/them.php");
         }
