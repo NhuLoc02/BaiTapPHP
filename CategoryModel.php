@@ -28,11 +28,11 @@ class CategoryModel
         return $categories;
         
     }
-    // public function deleteCategory($categoryId)
-    // {
-    //     $sql_delete_category = "DELETE FROM category WHERE category_id = $categoryId";
-    //     mysqli_query($this->mysqli, $sql_delete_category);
-    // }
+     public function deleteCategory($categoryId)
+    {
+        $sql_delete_category = "DELETE FROM category WHERE category_id = $categoryId";
+        mysqli_query($this->mysqli, $sql_delete_category);
+    }
 }
 // $categoryModel = new CategoryModel($mysqli);
 
