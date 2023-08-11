@@ -23,10 +23,11 @@ class CategoryController
         $categories = $categoryModel->getCategory();
         require_once './views/CategoryListView.php';
     }
-    // public function deleteCategory($categoryId)
-    // {
-    //     $this->model->deleteCategory($categoryId);
-    // }
+    public function deleteCategory($categoryId)
+    {
+        global $categoryModel;
+        $categoryModel->deleteCategory($categoryId);
+    }
 } 
 
 
