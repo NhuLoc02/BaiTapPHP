@@ -263,8 +263,8 @@
         for (var i = 0; i < checkeds.length; i++) {
             checkedIds.push(checkeds[i].id);
         }
-        linklist = "modules/product/xuly.php?data=" + JSON.stringify(checkedIds);
-        btnDelete.href = "modules/product/xuly.php?data=" + JSON.stringify(checkedIds);
+        // linklist = "modules/product/xuly.php?data=" + JSON.stringify(checkedIds);
+        btnDelete.href = "?action=product&query=product_delete&checked_ids=" + JSON.stringify(checkedIds);
     }
     // truyền giá trị sale vào thẻ a
     var inputSale = document.querySelector('#input_sale');
