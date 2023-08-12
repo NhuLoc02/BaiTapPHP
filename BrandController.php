@@ -20,7 +20,15 @@ class BrandController
         $brands = $brandModel->getBrand();
         require_once './views/BrandListView.php';
     }
-       
+    public function addBrand() {
+        global $brandModel;
+        if (isset($_POST['brand_add'])) {
+            $brandName = $_POST['brand_name'];
+            $brandModel->addBrand($brandName);
+            echo "<script>window.location.href = '../../demo/index.php?action=brand&query=brand_list';</script>";
+        }
+        require_once './views/BrandAddView.php';
+    }
     public function editBrand() {
         global $brandModel;
         if (isset($_GET['brand_id'])) {
