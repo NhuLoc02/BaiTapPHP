@@ -36,7 +36,11 @@ class ProductModel {
         $row = mysqli_fetch_array($query);
         return $row[0];
     }
-
+    public function deleteProduct($productId)
+    {
+        $sql_delete_product = "DELETE FROM product WHERE product_id = $productId";
+        mysqli_query($this->mysqli, $sql_delete_product);
+    }
     // Các phương thức hoạt động với cơ sở dữ liệu khác cho model sản phẩm
 }
 ?>
