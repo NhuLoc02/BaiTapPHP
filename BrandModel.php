@@ -30,6 +30,15 @@ class BrandModel
         }
         return $brands;
     }
+    public function getBrandById($brandId) {
+        $sql_brand_edit = "SELECT * FROM brand WHERE brand_id = '$brandId' LIMIT 1";
+        $query_brand_edit = mysqli_query($this->mysqli, $sql_brand_edit);
+
+        $brands = mysqli_fetch_assoc($query_brand_edit);
+
+        return $brands;
+    }
+    
 
     public function addBrand($brandName)
     {
@@ -40,23 +49,12 @@ class BrandModel
 
     public function editBrand($brandId, $brandName)
     {    
-        $sql_edit_brand = "SELECT * FROM brand WHERE brand_id = '$brandId' LIMIT 1";
-        $query_edit_brand = $this->mysqli->query($sql_edit_brand);
-        $brands = array();
-        while ($row = $query_edit_brand->fetch_assoc()) {
-            $brands[] = $row;
-        }
-        
-        if (isset($_POST['brand_edit'])) {
-        $brandId =  $_GET['brand_id'] ;
-        $brandName =  $_POST['brand_name'];
-      
-        $sqlUpdate = "UPDATE brand SET brand_name = '".$brandName."' WHERE brand_id = $brandId";
+       
+            
+        $sqlUpdate = "UPDATE brand SET brand_name = '$brandName' WHERE brand_id = '$brandId'";
         mysqli_query($this->mysqli, $sqlUpdate);
-        echo "<script> window.location.href = '../../demo/index.php?action=brand&query=brand_list';</script>";
-
         
-        exit();
-        }
+        
     }
-}
+ }
+ $brandModel = new BrandModel($mysqli);
