@@ -3,8 +3,10 @@ require_once './models/ProductModel.php';
 $productModel = new ProductModel($mysqli);
 class ProductController {
     public $ahihi;
+    private $model;
 
     public function __construct() {
+        $this->model = new ProductModel($GLOBALS['mysqli']);
         
     }
 
@@ -28,6 +30,10 @@ class ProductController {
     }
 
     // Các phương thức khác cho controller quản lý sản phẩm
+    public function deleteProduct($productId)
+    {
+        $this->model->deleteProduct($productId);
+    }
 }
 
 $productController = new ProductController();
