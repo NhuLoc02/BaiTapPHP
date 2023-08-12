@@ -6,8 +6,6 @@ if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     exit();
 }
-$sql_edit_brand = "SELECT * FROM brand WHERE brand_id = '$_GET[brand_id]' LIMIT 1";
-$query_edit_brand = mysqli_query($mysqli, $sql_edit_brand);
 ?>
 <div class="row"><body>
     <!-- Add the necessary page content -->
@@ -27,22 +25,18 @@ $query_edit_brand = mysqli_query($mysqli, $sql_edit_brand);
             <div class="card">
                 <div class="card-body">
                     <div class="card-content">
-                    <?php
-             
-                    while ($item = mysqli_fetch_array($query_edit_brand)) {
-                    ?>
-                        <form method="POST" action="models/BrandModel.php?brand_id=<?php echo $brandId; ?>" enctype="multipart/form-data">
+                        <form method="POST" action="" enctype="multipart/form-data">
 
                             <div class="input-item form-group">
                                 <label for="title" class="d-block">Tên thương hiệu</label>
-                                <input type="text" name="brand_name" class="form-control" value="<?php echo $item['brand_name']; ?>" placeholder="collection name">
+                                <input type="text" name="brand_name" class="form-control" value="<?php echo $data['brand_name']; ?>" placeholder="collection name">
                             </div>
                                 <button type="submit" name="brand_edit" class="btn btn-primary btn-icon-text">
                                 <i class="ti-file btn-icon-prepend"></i>
                                  Sửa
                                 </button>
+                
                         </form>
-                    <?php } ?>
                     </div>
                 </div>
             </div>
