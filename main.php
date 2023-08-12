@@ -61,6 +61,7 @@
             include("./controllers/ProductController.php");
             $productController = new ProductController();
             $productController->productList($productModel);
+
         }
         elseif($action =='product' && $query == 'product_edit') {
             include("./modules/product/sua.php");
@@ -114,25 +115,19 @@
             $brandController = new BrandController();
             $brandController->brandList($brandModel);
         }
-        elseif($action =='brand' && $query == 'brand_add') {
-            
+        elseif($action =='brand' && $query == 'brand_add_ahihi') {
+            require_once ("./controllers/BrandController.php");
+            $brandController = new BrandController();
+            $brandController->addBrand($brandId, $brandId, '', $brandModel);
         }
         elseif($action =='brand' && $query == 'brand_edit_ahihi') {
             
             require_once ("./controllers/BrandController.php");
             $brandController = new BrandController();
-            $brandController->brandEdit($brandId, $brandName, $brandModel);
+            $brandController->editBrand($brandId, '', $brandModel);
         }
         elseif($action =='customer' && $query == 'customer_list') {
-            include("./controllers/CustomerController.php");
-        }
-        elseif ($action == 'customer' && $query == 'customer_delete') {
-            require_once 'controllers/customerController.php';
-            $customerController = new CustomerController();
-            $checkedIds = !empty($_GET['checked_ids']) ? json_decode($_GET['checked_ids']) : [];
-            foreach ($checkedIds as $customerId) {
-                $customerController->deletecustomer($customerId);
-            }
+            include("./modules/customer/lietke.php");
         }
         elseif($action =='inventory' && $query == 'inventory_list') {
             include("./modules/inventory/lietke.php");
