@@ -33,6 +33,7 @@ class ProductController {
     public function deleteProduct($productId)
     {
         $this->model->deleteProduct($productId);
+         echo "<script>window.location.href = '../../demo/demo/index.php?action=product&query=product_list';</script>";
     }
 }
 
