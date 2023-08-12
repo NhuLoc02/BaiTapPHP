@@ -31,7 +31,7 @@ class BrandModel
         return $brands;
     }
     public function getBrandById($brandId) {
-        $sql_brand_edit = "SELECT * FROM brand WHERE brand_id = '$brandId' LIMIT 1";
+        $sql_brand_edit = "SELECT * FROM brand WHERE brand_id = '$brandId' LIMIT 1 ";
         $query_brand_edit = mysqli_query($this->mysqli, $sql_brand_edit);
 
         $brands = mysqli_fetch_assoc($query_brand_edit);
@@ -43,8 +43,8 @@ class BrandModel
     public function addBrand($brandName)
     {
         $sql_add_brand = "INSERT INTO brand (brand_name) VALUES ('$brandName')";
-        $this->mysqli->query($sql_add_brand);
-        header('Location: ../../index.php?action=brand&query=brand_list');
+        mysqli_query($this->mysqli, $sql_add_brand);
+       
     }
 
     public function editBrand($brandId, $brandName)
