@@ -77,7 +77,9 @@
 
         }
         elseif($action =='product' && $query == 'product_edit') {
-            include("./modules/product/sua.php");
+            include("./controllers/ProductController.php");
+            $productController = new ProductController();
+            $productController->editProduct($productModel);
         }
         elseif($action =='product' && $query == 'product_search') {
             include("./modules/product/timkiem.php");
