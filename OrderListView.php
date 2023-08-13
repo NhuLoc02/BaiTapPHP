@@ -73,7 +73,7 @@
                             ?>
                                 <tr>
                                     <td>
-                                        <a href="?action=order&query=order_detail_online&order_code=<?php echo $row['order_code'] ?>">
+                                        <a href="index.php?action=order&query=order_detail_online&order_code=<?php echo $row['order_code'] ?>">
                                             <div class="icon-edit">
                                                 <img class="w-100 h-100" src="images/icon-view.png" alt="">
                                             </div>
@@ -85,7 +85,7 @@
                                     <td><?php echo $row['order_code'] ?></td>
                                     <td><?php echo $row['order_date'] ?></td>
                                     <td><?php echo $row['account_name'] ?></td>
-                                    <td><?php echo format_order_type($row['order_type']); ?></td>
+                                    <td><?php echo "mai" //format_order_type($row['order_type']); ?></td>
                                     <td>
                                         <?php if ($row['order_status'] == 0) {
                                         ?>
