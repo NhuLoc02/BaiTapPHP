@@ -10,10 +10,17 @@ class OrderModel {
     }
 
     public function getOrder() {
-        $sql_order_list = "SELECT * FROM orders JOIN account ON orders.account_id = account.account_id WHERE orders.order_status  ORDER BY orders.order_id  ";
-        $query_order_list = $this->mysqli->query($sql_order_list);
-
-       
+        $mysqli = new mysqli('localhost', 'root', '', 'dbtest');
+        if (isset($_GET['order_status'])) {
+            $order_status = $_GET['order_status'];
+        
+            $sql_order_list = "SELECT * FROM orders JOIN account ON orders.account_id = account.account_id WHERE orders.order_status = $order_status ORDER BY orders.order_id DESC LIMIT 10";
+            $query_order_list = mysqli_query($mysqli, $sql_order_list);
+        } else {
+            
+            $sql_order_list = "SELECT * FROM orders JOIN account ON orders.account_id = account.account_id WHERE orders.order_status >= 0 AND orders.order_status < 3 ORDER BY orders.order_id DESC LIMIT 10";
+            $query_order_list = mysqli_query($mysqli, $sql_order_list);
+        }
         $orders = array();
         
         while ($row = $query_order_list->fetch_assoc()) {
@@ -29,29 +36,13 @@ class OrderModel {
         $row = mysqli_fetch_array($query);
         return $row[0];
     }
+    public function getOrderDetail() {
+        $sql_order = "SELECT * FROM orders JOIN delivery ON orders.delivery_id = delivery.delivery_id WHERE orders.order_code  ORDER BY orders.order_id LIMIT 1 ";
+        $query_order_detail = mysqli_query($this->mysqli, $sql_order);
 
-    // public function getOrderDetail() {
-    //     $sql_order = "SELECT * FROM orders JOIN delivery ON orders.delivery_id = delivery.delivery_id WHERE orders.order_code  ORDER BY orders.order_id DESC";
-    //     mysqli_query($this->mysqli, $sql_order);
-        
-    // }
-    public function getOrderDetail($order_code) {
-        $sql = "SELECT * FROM orders WHERE order_code = '$order_code' LIMIT 1";
-        $query = mysqli_query($this->mysqli, $sql);
-        return mysqli_fetch_array($query);
+        $orders = mysqli_fetch_assoc($query_order_detail);
+
+        return $orders;
     }
-
-    public function getOrderDetails($order_code) {
-        $sql = "SELECT od.order_detail_id, p.product_id, p.product_name, od.product_quantity, od.product_price, od.product_sale, p.product_image FROM order_detail od JOIN product p ON od.product_id = p.product_id WHERE od.order_code = '$order_code' ORDER BY od.order_detail_id DESC";
-        $query = mysqli_query($this->mysqli, $sql);
-        return $query;
-    }
-
-    public function getOrderWithDelivery($order_code) {
-        $sql = "SELECT * FROM orders JOIN delivery ON orders.delivery_id = delivery.delivery_id WHERE orders.order_code = '$order_code' ORDER BY orders.order_id DESC";
-        $query = mysqli_query($this->mysqli, $sql);
-        return $query;
-    }
-
-}
+   
 ?>
