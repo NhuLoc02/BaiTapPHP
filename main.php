@@ -34,7 +34,9 @@
             include("./modules/order/chitiet.php");
         }
         elseif($action =='order' && $query == 'order_detail_online') {
-            include("./modules/order/chitiet_online.php");
+            require_once ("./controllers/OrderController.php");
+            $orderController = new OrderController();
+            $orderController->orderDetail($orderModel);
         }
         elseif($action =='category' && $query == 'category_add') {
             include("./modules/category/them.php");
@@ -45,6 +47,14 @@
         elseif($action =='category' && $query == 'category_edit') {
             include("./modules/category/sua.php");
         } 
+        elseif ($action == 'category' && $query == 'category_delete') {
+            require_once 'controllers/CategoryController.php';
+            $categoryController = new CategoryController();
+            $checkedIds = !empty($_GET['checked_ids']) ? json_decode($_GET['checked_ids']) : [];
+            foreach ($checkedIds as $categoryId) {
+                $categoryController->deleteCategory($categoryId);
+            }
+        }
         elseif($action =='collection' && $query == 'collection_add') {
             include("./modules/collection/them.php");
         }
