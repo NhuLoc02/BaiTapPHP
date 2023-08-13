@@ -24,24 +24,24 @@
                             
                             <?php 
                                 if (isset($_GET['order_status']) && $_GET['order_status'] == 0) {
-                                    echo "Đơn đang xử lý";
+                                    echo "Đang xử lý";
                                 } elseif(isset($_GET['order_status']) && $_GET['order_status'] == 1) {
-                                    echo "Đang chuyển bị hàng";
+                                    echo "Đang chuẩn bị hàng";
                                 } elseif(isset($_GET['order_status']) && $_GET['order_status'] == 2) {
                                     echo "Đang giao hàng";
                                 } elseif(isset($_GET['order_status']) && $_GET['order_status'] == 3) {
                                     echo "Đã hoàn thành";
                                 } elseif(isset($_GET['order_status']) && $_GET['order_status'] == -1) {
-                                    echo "Đơn đã hủy";
+                                    echo "Đã hủy";
                                 } else {
                                     echo "Đang thực hiện";
                                 }
                             ?>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton2">
-                            <a class="dropdown-item" href="index.php?action=order&query=order_list">Đơn đang thực hiện</a>
+                            <a class="dropdown-item" href="index.php?action=order&query=order_list">Đang thực hiện</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=0">Đang xử lý</a>
-                            <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=1">Đang chuyển bị hàng</a>
+                            <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=1">Đang chuẩn bị hàng</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=2">Đang giao hàng</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=3">Đã hoàn thành</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=-1">Đã hủy</a>
@@ -85,42 +85,8 @@
                                     <td><?php echo $row['order_code'] ?></td>
                                     <td><?php echo $row['order_date'] ?></td>
                                     <td><?php echo $row['account_name'] ?></td>
-                                    <td><?php echo "mai" //format_order_type($row['order_type']); ?></td>
-                                    <td>
-                                        <?php if ($row['order_status'] == 0) {
-                                        ?>
-                                            <div class="order_status order_status--0">
-                                                <span class="show-status">Đơn đang xử lý</span>
-                                            </div>
-                                        <?php
-                                        } elseif ($row['order_status'] == 1) {
-                                        ?>
-                                            <div class="order__status order__status--1">
-                                                <span class="show-status">Đang chuẩn bị hàng</span>
-                                            </div>
-                                        <?php
-                                        } elseif ($row['order_status'] == 2) {
-                                        ?>
-                                             <div class="order__status order__status--2">
-                                                <span class="show-status">Đang giao hàng</span>
-                                            </div>
-                                        <?php
-                                        } elseif ($row['order_status'] == 3) {
-                                        ?>
-                                            <div class="order__status order__status--3">
-                                                <span class="show-status">Đã hoàn thành</span>
-                                            </div>
-                                        <?php
-                                        } elseif ($row['order_status'] == -1) {
-                                        ?>
-                                            <div class="order__status order__status---1">
-                                                <span class="show-status">Đơn đã hủy</span>
-                                            </div>
-                                            <?php
-                                             }
-                                            ?>
-                                        
-                                    </td>
+                                    <td><?php echo format_order_type($row['order_type']); ?></td>
+                                    <td class="text-center"><span class="col-span <?php echo format_status_style($row['order_status']) ?>"><?php echo format_order_status($row['order_status']); ?></span></td>
                                 </tr>
                             
                         </tbody>
