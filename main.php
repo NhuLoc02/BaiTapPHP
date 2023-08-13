@@ -12,8 +12,11 @@
         if ($action == 'dashboard' && $query == 'dashboard') {
             include("./modules/dashboard.php");
         }
-        elseif ($action == 'order' && $query == 'order_list') {
-            include("./modules/order/lietke.php");
+        elseif($action =='order' && $query == 'order_list') {
+            require_once './format/format.php';
+            include("./controllers/OrderController.php");
+            $orderController = new OrderController();
+            $orderController->orderList($orderModel);
         }
         elseif ($action == 'order' && $query == 'order_live') {
             include("./modules/order/donhangtructiep.php");
