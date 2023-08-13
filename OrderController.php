@@ -2,18 +2,6 @@
 // ini_set('display_errors', 1);
 // ini_set('error_reporting', E_ALL);
 
-$mysqli = new mysqli("host", "username", "password", "database");
-
-require_once 'OrderDetailView.php';
-require_once 'OrderDetailController.php';
-
-$model = new OrderDetailModel($mysqli);
-
-$controller = new OrderDetailController($model, $view);
-
-$order_code = $_GET['order_code'];
-$controller->handleOrderActions();
-$controller->showOrderDetail($order_code);
 require_once './models/OrderModel.php';
 $orderModel = new OrderModel($mysqli);
 class OrderController {
@@ -26,8 +14,8 @@ class OrderController {
     private $model;
     private $view;
 
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct() {
+        $this->model = new OrderModel($GLOBALS['mysqli']);
       
     }
     public function orderList($orderModel) {
@@ -37,20 +25,6 @@ class OrderController {
 
         
     }
-
-//     public function orderDetail($orderDetailModel) {
-//         global $orderModel;
-//         if (isset($_POST['order_code'])) {
-//             $orderCode = $_POST['order_code'];
-//             $data = $orderModel->getOrderById($orderCode); // Truyền brandId vào phương thức getBrandById()
-    
-//         //     if (isset($_POST['brand_edit'])) {
-//         //         $brandName = $_POST['brand_name'];
-//         //         $brandModel->editBrand($brandId, $brandName);
-//         // require_once './views/OrderDetailView.php';
-//     }
-// }
-// }
 public function orderDetail() { 
     global $orderModel; 
     if (isset($_GET['order_id']) ) {
