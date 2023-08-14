@@ -22,7 +22,10 @@
             include("./modules/order/donhangtructiep.php");
         }
         elseif ($action == 'order' && $query == 'order_payment') {
-            include("./modules/order/lichsuthanhtoan.php");
+            require_once './format/format.php';
+            include("./controllers/OrderController.php");
+            $orderController = new OrderController();
+            $orderController->orderHistory();
         }
         elseif ($action == 'order' && $query == 'order_add') {
             include("./modules/order/them.php");
@@ -33,13 +36,22 @@
         elseif ($action == 'order' && $query == 'order_search') {
             include("./modules/order/timkiem.php");
         }
-        elseif($action =='order' && $query == 'order_detail') {
-            include("./modules/order/chitiet.php");
-        }
-        elseif($action =='order' && $query == 'order_detail_online') {
+         elseif($action =='order' && $query == 'order_detail') {
+            require_once './format/format.php';
             require_once ("./controllers/OrderController.php");
             $orderController = new OrderController();
-            $orderController->orderDetail($orderModel);
+            $orderController->getOrderHisDetail();
+        }
+        elseif($action =='order' && $query == 'order_detail_online') {
+            require_once './format/format.php';
+            require_once ("./controllers/OrderController.php");
+            $orderController = new OrderController();
+            $orderController->getOrderDetail();
+        }
+        elseif($action =='order' && $query == 'order_confirm') {
+            include("./controllers/OrderController.php");
+            $orderController = new OrderController();
+            $orderController->confirmOrder($orderModel);
         }
         elseif($action =='category' && $query == 'category_add') {
             include("./modules/category/them.php");
