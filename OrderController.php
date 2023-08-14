@@ -16,8 +16,8 @@ class OrderController {
         $this->model = new OrderModel($GLOBALS['mysqli']);
       
     }
-    public function orderList($orderModel) {
-
+    public function orderList() {
+        global $orderModel;
         $orders = $orderModel ->getOrder();
         require_once './views/OrderListView.php';
         
@@ -26,15 +26,47 @@ class OrderController {
 
 public function getOrderDetail() { 
     global $orderModel;
-    if(isset($_GET['order_code'])) {
-        $orderCode = $_GET['order_code'];
-        
-        $orderDetails = $orderModel->getOrderDetail();
-        require_once './views/OrderDetailView.php'; // Replace this with the actual path to your view file
-    }
- }
+    $order_code = $_GET['order_code'];
+    $delivery_id = isset($_GET['delivery_id']) ? $_GET['delivery_id'] : null;
+    $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : null;
+
+    $getByIds = $orderModel->getById($order_code);
+    $orderDetails = $orderModel->getOrderdetail($delivery_id);
+    $productDetails = $orderModel->getProductDetail($product_id);
+
+    require_once './views/OrderDetailView.php';
+}
+
+public function getOrderHisDetail() { 
+    global $orderModel;
+    $order_code = $_GET['order_code'];
+    $delivery_id = isset($_GET['delivery_id']) ? $_GET['delivery_id'] : null;
+    $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : null;
+
+    $getByIds = $orderModel->getById();
+    $orderDetails = $orderModel->getOrderdetail();
+    $productDetails = $orderModel->getProductDetail();
+
+    require_once './views/OrderHisDetailView.php';
+}
+// public function confirmOrder() { 
+//         global $orderModel;
+//         $orders = $orderModel ->confirmOrder();
+//         require_once './views/OrderListView.php';
+//     }
+public function printOrder() { 
 
 }
+public function orderHistory() { 
+    global $orderModel;
+    $payment_id = isset($_GET['payment_id']) ? $_GET['payment_id'] : null;
+
+    $orderHistory = $orderModel->getOrderHistory();
+    require_once './views/OrderHistoryView.php';
+}
+
+}
+
     // Các phương thức khác cho controller quản lý sản phẩm
    
 $action = isset($_GET['action']) ? $_GET['action'] : null;
