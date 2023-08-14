@@ -18,12 +18,17 @@
                     <div class="checkout">
                         <div class="row">
                             <div class="col col-lg-7">
-                                <div class="checkout__title d-flex align-center space-between"><span>Mã đơn hàng: <?php echo $order_code ?></span> <span>Thời gian: <?php $order_date ?></span></div>
-
+                            <?php
+                            foreach ($getByIds as $row) {
+                            ?>
+                                <div class="checkout__title d-flex align-center space-between"><span>Mã đơn hàng: <?php echo $row['order_code'] ?></span> <span>Thời gian: <?php $row['order_date'] ?></span></div>
+                                <?php
+                                    } 
+                                    ?>
                                 <div class="checkout__infomation">
                                     <?php
                                     $total;
-                                    foreach ($orderDetails as $row) {
+                                    foreach ($orderDetails as $account) {
 
                                         $total = $account['total_amount'];
                                     ?>
@@ -45,7 +50,7 @@
                                         </div>
                                         <div class="info__item d-flex">
                                             <label for="" class="info__title" for="order_type">Phương thức:</label>
-                                            <input type="text" class="info__input flex-1" name="order_type" value="<?php echo "mai" //format_order_type($account['order_type']) ?>"></input>
+                                            <input type="text" class="info__input flex-1" name="order_type" value="<?php format_order_type($account['order_type']) ?>"></input>
                                         </div>
                                     <?php
                                     } 
@@ -56,7 +61,9 @@
                                 <div class="checkout__cart">
                                     <div class="checkout__items">
                                         <?php
-                                        while ($cart_item = mysqli_fetch_array($query_order_detail_list)) {
+                                       
+                                         foreach ($productDetails as $cart_item) {
+                
                                         ?>
                                             <div class="checkout__item d-flex align-center">
                                                 <div class="checkout__image p-relative">
@@ -91,25 +98,24 @@
                         </div>
                         <div class="d-flex algin-center space-between">
                             <?php
-                            $query_status = mysqli_query($mysqli, "SELECT * FROM orders WHERE order_code = '$order_code' LIMIT 1");
-                            while ($status = mysqli_fetch_array($query_status)) {
+                            foreach ($getByIds as $row) {
                             ?>
                                 <div class="order__detail--action">
                                     <?php 
-                                    if ($status['order_status'] <= 2) {
+                                    if ($row['order_status'] <= 2) {
                                     ?>
-                                    <a href="?action=order&query=order_confirm&checked_ids=<?php echo $order_code ?>" class="btn btn-outline-dark btn-fw">Duyệt đơn</a>
+                                    <a href="?action=order&query=order_confirm&checked_ids=<?php echo $row['order_code']?>" class="btn btn-outline-dark btn-fw">Duyệt đơn</a>
                                     <?php
                                     } else {
                                     ?>
-                                    <a href="?action=order&query=order_rollback&checked_ids=<?php echo $order_code ?>" class="btn btn-outline-dark btn-fw">Trả hàng</a>
+                                    <a href="?action=order&query=order_rollback&checked_ids=<?php echo $row['order_code'] ?>" class="btn btn-outline-dark btn-fw">Trả hàng</a>
                                     <?php
                                     }
                                     ?>
-                                    <a href="modules/order/indonhang.php?order_code=<?php echo $order_code ?>" target="_blank" class="btn btn-outline-dark btn-fw mg-l-16">In Hóa Đơn</a>
+                                    <a href="?action=order&query=order_print&checked_ids=<?php echo $row['order_code'] ?>" target="_blank" class="btn btn-outline-dark btn-fw mg-l-16">In Hóa Đơn</a>
                                 </div>
 
-                                <div class="order_status">Tình trạng đơn: <span class="col-span"><?php echo "mai" //format_order_status($status['order_status']); ?></span></div>
+                                <div class="order_status">Tình trạng đơn: <span class="col-span"><?php format_order_status($row['order_status']); ?></span></div>
                             <?php
                             }
                             ?>
