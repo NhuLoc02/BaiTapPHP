@@ -39,7 +39,7 @@
                             ?>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton2">
-                            <a class="dropdown-item" href="index.php?action=order&query=order_list">Đang thực hiện</a>
+                            <a class="dropdown-item" href="index.php?action=order&query=order_list&order">Đang thực hiện</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=0">Đang xử lý</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=1">Đang chuẩn bị hàng</a>
                             <a class="dropdown-item" href="index.php?action=order&query=order_list&order_status=2">Đang giao hàng</a>
@@ -67,9 +67,9 @@
                         </thead>
                         <tbody>
                             <?php
-                            $i = 0;
+                            $i =0;
                             foreach ($orders as $row) {
-                                $i++;}
+                            $i++;
                             ?>
                                 <tr>
                                     <td>
@@ -88,7 +88,7 @@
                                     <td><?php echo format_order_type($row['order_type']); ?></td>
                                     <td class="text-center"><span class="col-span <?php echo format_status_style($row['order_status']) ?>"><?php echo format_order_status($row['order_status']); ?></span></td>
                                 </tr>
-                            
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
