@@ -22,7 +22,7 @@ class AccountController {
         $keyword = isset($_POST['account_keyword']) ? $_POST['account_keyword'] : "";
         $accounts = $accModel->getAccountList($keyword);
       
-        include 'views/AccView.php';
+        include 'views/AccListView.php';
     }
 
     public function accListId() {
