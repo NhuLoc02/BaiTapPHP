@@ -28,6 +28,21 @@ class ArticleController
         $articles = $articleModel->getArticles();
         require_once './views/ArticleListView.php';
     }
+    public function addArticle()
+    {
+        global $articleModel;
+        if(isset($_POST['article_add'])) {
+            $articleAuthor= $_POST['article_author'];
+            $articleTitle= $_POST['article_title'];
+            $articleSummary= $_POST['article_summary'];
+            $articleContent= $_POST['article_content'];
+            $articleStatus= $_POST['article_status'];
+            $articleModel->addArticle($articleAuthor, $articleTitle, $articleSummary, $articleContent, $articleStatus);
+            echo "<script>window.location.href = '../../demo/demo/index.php?action=article&query=article_list';</script>"; 
+            
+        }
+        require_once './views/ArticleAddView.php';
+    }
     public function editArticle()
     {
         global $articleModel;
