@@ -58,7 +58,22 @@
                                         <td><img src="modules/blog/uploads/<?php echo $row['article_image'] ?>" alt=""></td>
                                         <td><?php echo $row['article_date'] ?></td>
                                         <td><?php echo $row['article_title'] ?></td>
-                                        <td><?php echo $row['article_status'] ?></td>
+                                        <td>
+                                        <?php if ($row['article_status'] == 1) {
+                                        ?>
+                                            <div class="article__status article__status--active">
+                                                <span class="show-status">Xuất bản</span>
+                                            </div>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <div class="article__status article__status--pause">
+                                                <span class="show-status">Bản nháp</span>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                        </td>
                                     </tr>
                                 <?php
                                 }
@@ -72,7 +87,7 @@
 </div>
 <div class="dialog__control">
     <div class="control__box">
-        <a href="#" class="button__control" id="article_delete">Xóa</a>
+        <a href="" class="button__control" id="article_delete">Xóa</a>
     </div>
 </div>
 <script>
@@ -125,7 +140,6 @@
         btnDelete.href = "?action=article&query=article_delete&checked_ids=" + JSON.stringify(checkedIds);
     }  
 </script>
-
 
 
 
