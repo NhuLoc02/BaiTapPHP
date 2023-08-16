@@ -9,7 +9,7 @@ Quay lại
 </a>
 </div>
 </div>
-<form method="POST" action="controllers/ArticleController.php" enctype="multipart/form-data">
+<form method="POST" action="" enctype="multipart/form-data">
 <div class="row">
 <div class="col-lg-8 grid-margin stretch-card">
 <div class="card">
@@ -33,8 +33,8 @@ Quay lại
 </div>
 
 
-<button  type="submit" name="article_add2" class="btn btn-primary btn-icon-text mg-t-16">
-<a href="?action=article&query=article_add2">
+<button  type="submit" name="article_add" class="btn btn-primary btn-icon-text mg-t-16">
+<!-- <a href=""> -->
 <i class="ti-file btn-icon-prepend"></i>
 Thêm
 </a>
@@ -52,8 +52,8 @@ Thêm
 <h6></h6>
 </div>
 <div class="input-item form-group">
-<label for="title" class="d-block">Trang thái</label>
-<select name="product_status" id="product_status" class="form-control">
+<label for="title" class="d-block">Trạng thái</label>
+<select name="article_status" id="article_status" class="form-control">
 <option value="0">Bản nháp</option>
 <option value="1">Xuất bản</option>
 </select>
@@ -72,4 +72,3 @@ Thêm
 CKEDITOR.replace('article_summary');
 CKEDITOR.replace('article_content');
 </script>
-
