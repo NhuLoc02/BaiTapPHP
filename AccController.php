@@ -2,20 +2,25 @@
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
 include './models/AccModel.php';
-
-class AccountController {
+$accModel = new AccountModel($mysqli);
+class AccountController 
+{
     private $account_id;
-    private $account_name;
-    private $account_phone;
-    private $account_address;
-    private $customer_gender;
+    // private $account_name;
+    // private $account_phone;
+    // private $account_address;
+    // private $customer_gender;
+    private $account_type;
+    private $account_status;
 
-    public function __construct($account_id = NULL, $account_name = NULL, $account_phone = NULL, $account_address = NULL, $customer_gender = NULL) {
+    public function __construct($account_id = NULL, $account_type = NULL, $account_status = NULL) {
         $this->account_id = $account_id;
-        $this->account_name = $account_name;
-        $this->account_phone = $account_phone;
-        $this->account_address = $account_address;
-        $this->customer_gender = $customer_gender;
+        // $this->account_name = $account_name;
+        // $this->account_phone = $account_phone;
+        // $this->account_address = $account_address;
+        // $this->customer_gender = $customer_gender;
+        $this->account_type= $account_type;
+        $this->account_status= $account_status;
     }
 
     public function accList($accModel) {
@@ -25,56 +30,36 @@ class AccountController {
         include 'views/AccListView.php';
     }
 
-    public function accListId() {
+    public function editAcc() {
         global $accModel;
         
-        if (isset($_GET['account_id'])) {
+        if (isset($_GET['account_id'])) 
+        {
             $account_id = $_GET['account_id'];
             $accounts = $accModel->getAccId($account_id);
 
+
             if (isset($_POST['account_change'])) {
-                if (isset($_POST['account_name'])) {
-                    $account_name = $_POST['account_name'];
-                } else {
-                    $account_name = "";
-                }
-
-                if (isset($_POST['account_phone'])) {
-                    $account_phone = $_POST['account_phone'];
-                } else {
-                    $account_phone = "";
-                }
-
-                if (isset($_POST['account_address'])) {
-                    $account_address = $_POST['account_address'];
-                } else {
-                    $account_address = "";
-                }
-
-                if (isset($_POST['customer_gender'])) {
-                    $customer_gender = $_POST['customer_gender'];
-                } else {
-                    $customer_gender = "";
-                }
-                
-                $accModel->editAcc($account_id, $account_name, $account_phone, $account_address, $customer_gender);
+                // $account_name = $_POST['account_name'];
+                // $account_phone = $_POST['account_phone'];
+                // $account_address = $_POST['account_address'];
+                // $customer_gender = $_POST['customer_gender']; 
+                $account_type= $_POST['account_type'];
+                $account_status=$_POST['account_status'];
+                $accModel->editAcc($account_id, $account_type, $account_status);
     
                 // Redirect properly with the correct URL
-                echo "<script>window.location.href = '../../BaiN1/admin/index.php?action=account&query=account_list</script>";
-                exit();
+                echo "<script>window.location.href = '../../demo/demo/index.php?action=account&query=account_list';</script>";
             }
-
-            include 'views/AccEditView.php';
         }
+        require_once './views/AccEditView.php';
     }
 }
 
-$account_id = isset($_GET['account_id']) ? $_GET['account_id'] : null;
-$accModel = new AccountModel($mysqli);
 
 // Define other variables needed for account editing here
-$account_name = isset($_POST['account_name']) ? $_POST['account_name'] : null;
-$account_phone = isset($_POST['account_phone']) ? $_POST['account_phone'] : null;
-$account_address = isset($_POST['account_address']) ? $_POST['account_address'] : null;
-$customer_gender = isset($_POST['customer_gender']) ? $_POST['customer_gender'] : null;
-$accController = new AccountController($account_id, $account_name, $account_phone, $account_address, $customer_gender, $accModel);
+// $account_name = isset($_POST['account_name']) ? $_POST['account_name'] : null;
+// $account_phone = isset($_POST['account_phone']) ? $_POST['account_phone'] : null;
+// $account_address = isset($_POST['account_address']) ? $_POST['account_address'] : null;
+// $customer_gender = isset($_POST['customer_gender']) ? $_POST['customer_gender'] : null;
+$accController = new AccountController();
