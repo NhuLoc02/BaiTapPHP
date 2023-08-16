@@ -1,73 +1,57 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "dbtest");
-
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-}
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
 
 require_once './models/ArticleModel.php';
+$articleModel = new ArticleModel($mysqli);
 class ArticleController
 {
-    private $model;
+    private $articleId;
+    private $articleAuthor;
+    private $articleTitle;
+    private $articleSummary;
+    private $articleContent;
+    private $articleStatus; 
 
-    public function __construct()
+
+    public function __construct($articleId = null, $articleAuthor = null, $articleTitle= null, $articleContent= null, $articleSummary=null, $articleStatus=null )
     {
-        $this->model = new ArticleModel($GLOBALS['mysqli']);
+        $this->articleId = $articleId;
+        $this->articleAuthor = $articleAuthor;
+        $this->articleTitle = $articleTitle;
+        $this->articleSummary = $articleSummary;
+        $this->articleContent = $articleContent;
+        $this->articleStatus = $articleStatus;
     }
-
-    public function articleList()
+    public function articleList($articleModel)
     {
-        $articles = $this->model->getArticles();
-        require './views/ArticleListView.php';
+        $articles = $articleModel->getArticles();
+        require_once './views/ArticleListView.php';
     }
-
-    public function addArticle()
+    public function editArticle()
     {
-        $article = [
-            'article_author' => '',
-            'article_title' => '',
-            'article_summary' => '',
-            'article_content'=> '',
-            'article_image'=> '',
-            'article_date'=> '',
-            'article_status'=> ''
-        ];
-        $insertIntoArticle= $this->model->addArticle($article);
-    }
-
-    public function editArticle($articleId)
-    {
-        $updateQuery = $this->model->editArticle();
-        require './views/ArticleEditView.php';
-    }
-
-    public function showArticleEditForm($articleId)
-    {
-        $article = $this->model->getArticle($articleId);
-        $comments = $this->model->getComments($articleId);
-
-        require './views/ArticleEditView.php';
+        global $articleModel;
+        if(isset($_GET['article_id'])) {
+            $articleId= $_GET['article_id'];
+            $data= $articleModel->getArticlesId($articleId);
+            if (isset($_POST['article_edit'])) {
+                $articleAuthor= $_POST['article_author'];
+                $articleTitle= $_POST['article_title'];
+                $articleSummary= $_POST['article_summary'];
+                $articleContent= $_POST['article_content'];
+                $articleStatus= $_POST['article_status'];
+                $articleModel->editArticle($articleId, $articleAuthor, $articleTitle, $articleSummary, $articleContent, $articleStatus);
+                echo "<script>window.location.href = '../../demo/demo/index.php?action=article&query=article_list';</script>";
+            }
+        }
+        require_once './views/ArticleEditView.php';
     }
     public function deleteArticle($articleId)
     {
-        $this->model->deleteArticle($articleId);
+        global $articleModel;
+        $articleModel->deleteArticle($articleId);
+        echo "<script>window.location.href = '../../demo/demo/index.php?action=article&query=article_list';</script>";
     }
-} 
 
-
-$articleController = new ArticleController();
-
-$articleId = isset($_GET['article_id']) ? $_GET['article_id'] : null;
-$author = isset($_POST['article_author']) ? $_POST['article_author'] : null;
-$title = isset($_POST['article_title']) ? $_POST['article_title'] : null;
-$summary = isset($_POST['article_summary']) ? $_POST['article_summary'] : null;
-$content = isset($_POST['article_content']) ? $_POST['article_content'] : null;
-$image = isset($_FILES['article_image']['name']) ? $_FILES['article_image']['name'] : null;
-$status = isset($_POST['article_status']) ? $_POST['article_status'] : null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $articleController->editArticle($articleId, $author, $title, $summary, $content, $image, $status);
-} else {
-    $articleController->articleList();
-}
+}    
+$articleController= new ArticleController();
