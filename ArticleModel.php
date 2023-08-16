@@ -1,6 +1,12 @@
 <?php
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
+$mysqli = new mysqli("localhost", "root", "", "dbtest");
+
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    exit();
+}
 class ArticleModel
 {
     private $mysqli;
@@ -22,70 +28,22 @@ class ArticleModel
 
         return $articles;
     }
-    public function addArticle ($article)
+    public function getArticlesID($articleId)
     {
-        $article=[];
-        $sql= "insert into article(article_id, article_author, article_title, article_summary, article_content, article_image, article_date, article_status) values";
-        $valueStrings= array();
-        foreach ($article as $row) {
-            $values= implode(",", array_map(function($value){
-                return "'".$this->conn->real_escape_string($value)."'";
-            }, $row));
-            $valueStrings[]="({$value})";
-        }
-        $sql.= implode(",", $valueStrings);
-        if (!empty($valueStrings)) {
-            $result= $this->conn->query($sql);
-            if ($result) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
+        $sql_article_edit= "SELECT * FROM article WHERE article_id='$articleId' LIMIT 1";
+        $query_article_edit= mysqli_query($this->mysqli, $sql_article_edit);
+        $articles= mysqli_fetch_assoc($query_article_edit);
+        return $articles;
+    }
+    public function editArticle($articleId, $articleAuthor, $articleTitle, $articleSummary, $articleContent, $articleStatus)
+    {
+        $sql_article_update="UPDATE article SET article_author='$articleAuthor', article_title='$articleTitle', article_summary='$articleSummary', article_content='$articleContent', article_status='$articleStatus' WHERE article_id='$articleId'";
+        mysqli_query($this->mysqli, $sql_article_update);
     }
     public function deleteArticle($articleId)
     {
-        $sql_delete_article = "DELETE FROM article WHERE article_id = $articleId";
+        $sql_delete_article= "DELETE FROM article WHERE article_id= $articleId";
         mysqli_query($this->mysqli, $sql_delete_article);
     }
-    // public function editArticle($articleId, $author, $title, $summary, $content, $image, $status)
-    // {
-    //     if (empty($articleId)) {
-    //         return false;
-    //     }
-        
-    //     $articleId = $this->mysqli->real_escape_string($articleId);
-    //     $author = $this->mysqli->real_escape_string($author);
-    //     $title = $this->mysqli->real_escape_string($title);
-    //     $summary = $this->mysqli->real_escape_string($summary);
-    //     $content = $this->mysqli->real_escape_string($content);
-    //     $image = time() . '_' . $this->mysqli->real_escape_string($image);
-    //     $date = date('Y-m-d', time());
-    //     $status = $this->mysqli->real_escape_string($status);
-    
-    //     $oldImageQuery = $this->mysqli->query("SELECT article_image FROM article WHERE article_id = '$articleId' LIMIT 1");
-    
-    //     if ($oldImageQuery->num_rows > 0) {
-    //         $oldImageRow = $oldImageQuery->fetch_assoc();
-    //         $oldImagePath = 'uploads/' . $oldImageRow['article_image'];
-    //         if (file_exists($oldImagePath)) {
-    //             unlink($oldImagePath);
-    //         }
-    //     }
-    
-    //     if (isset($_FILES['article_image']) && $_FILES['article_image']['error'] === UPLOAD_ERR_OK) {
-    //         $tempImagePath = $_FILES['article_image']['tmp_name'];
-    //         $targetImagePath = 'uploads/' . $image;
-    //         move_uploaded_file($tempImagePath, $targetImagePath);
-    //     }
-    
-    //     $stmt = $this->mysqli->prepare("UPDATE article SET article_author=?, article_title=?, article_summary=?, article_content=?, article_image=?, article_date=?, article_status=? WHERE article_id=?");
-    //     $stmt->bind_param("sssssssi", $author, $title, $summary, $content, $image, $date, $status, $articleId);
-    //     $updateQuery = $stmt->execute();
-        
-    //     $stmt->close();
-    
-    //     return $updateQuery;
-    // }
 }
+$articleModel= new ArticleModel($mysqli);  
