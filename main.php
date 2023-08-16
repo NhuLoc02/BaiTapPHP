@@ -82,16 +82,30 @@
         elseif($action =='product' && $query == 'product_add') {
             include("./modules/product/them.php");
         }
-        elseif($action =='product' && $query == 'product_list') {
+         elseif($action =='product' && $query == 'product_list') {
             include("./controllers/ProductController.php");
             $productController = new ProductController();
-            $productController->productList($productModel);
-
+            // $productController->productList($productModel);
+            // if (isset($_GET['category_id'])) {
+            //     $category_id= $_GET['category_id'];
+            // } else {
+            //     $category_id= null;
+            // }
+            // $page= isset($_GET['pagenumber']) ? $_GET['pagenumber'] : 1;
+            $productController->showProducts();
         }
-        elseif($action =='product' && $query == 'product_edit') {
+        elseif($action =='product' && $query == 'product_edit_ahihi') {
             include("./controllers/ProductController.php");
             $productController = new ProductController();
             $productController->editProduct($productModel);
+        }
+        elseif ($action == 'product' && $query == 'product_delete') {
+            require_once 'controllers/ProductController.php';
+            $productController = new ProductController();
+            $checkedIds = !empty($_GET['checked_ids']) ? json_decode($_GET['checked_ids']) : [];
+            foreach ($checkedIds as $product_id) {
+                $productController->deleteProduct($product_id);
+            }
         }
         elseif($action =='product' && $query == 'product_search') {
             include("./modules/product/timkiem.php");
@@ -105,12 +119,18 @@
         elseif($action =='account' && $query == 'password_change') {
             include("./modules/account/password_change.php");
         }
-        elseif($action =='account' && $query == 'account_list') {
-            include("./modules/account/lietke.php");
+         elseif($action =='account' && $query == 'account_list') {
+            require_once('./controllers/AccController.php');
+            $accController = new AccountController();
+            $accController ->accList($accModel);
+
         }
         elseif($action =='account' && $query == 'account_edit') {
-         
+            require_once('./controllers/AccController.php');
+            $accController = new AccountController();
+            $accController ->editAcc($accModel);
         }
+
         elseif ($action == 'article' && $query == 'article_add') {
             require_once 'views/ArticleAddView.php';
             
@@ -122,6 +142,8 @@
             $articleController->addArticle(); }
         elseif($action =='article' && $query == 'article_list') {
             include("./controllers/ArticleController.php");
+            $articleController = new ArticleController();
+            $articleController->articleList($articleModel);
         }
         elseif ($action == 'article' && $query == 'article_delete') {
             require_once 'controllers/ArticleController.php';
@@ -135,7 +157,7 @@
             require_once 'controllers/ArticleController.php';
             $articleController = new ArticleController(); 
         // Gọi phương thức addArticle từ đối tượng đã tạo
-            $articleController->editArticle();
+            $articleController->editArticle($articleModel);
         } 
         elseif($action =='brand' && $query == 'brand_list') {
             include("./controllers/BrandController.php");
