@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli('localhost', 'root', '', 'test');
+$mysqli = new mysqli('localhost', 'root', '', 'dbtest');
 
 
 
@@ -17,24 +17,36 @@ class ProductModel {
         $products = array();
         
         while ($row = $query_product_list->fetch_assoc()) {
-            // $query_evaluate_rating = "SELECT evaluate_rate FROM evaluate WHERE product_id='" . $row['product_id'] . "' AND evaluate_status = 1";
-            
-            // $query_product_list_rating = $this->mysqli->query($query_evaluate_rating);
-            // $products_rate = array();
-            // while ($row_rate = $query_product_list_rating -> fetch_assoc()){
-            //     $products_rate[] = $row_rate;
-            // }
-            // return $products_rate;
             $products[] = $row;
         }
         
         return $products;
         }
-    public function getCount() {
-        $sql = "SELECT COUNT(*) FROM product";
-        $query = mysqli_query($this->mysqli, $sql);
-        $row = mysqli_fetch_array($query);
-        return $row[0];
+    public function getProductList($page = 1, $category_id = null)
+        {
+           $perPage= 4;
+           $begin= ($page -1)* $perPage;
+
+           $condition='';
+           if($category_id !==null) {
+            $condition= "WHERE product_category= $category_id";
+           }
+           $sql= "SELECT * FROM product $condition ORDER BY product_id DESC LIMIT $begin, $perPage";
+           $query= mysqli_query($this->mysqli, $sql);
+           return mysqli_fetch_all($query, MYSQLI_ASSOC);
+        }
+    public function getTotalPages($category_id= null)
+    {
+        $condition='';
+        if ($category_id !==null) {
+            $condition ="WHERE product_category= $category_id";
+        }
+        $perPage= 4; $page=1;
+        $begin= ($page -1)* $perPage;
+        $sql= "SELECT COUNT(*) as total FROM product $condition ORDER BY product_id DESC LIMIT $begin, $perPage";
+        $result= $this->mysqli->query($sql);
+        $row= $result->fetch_assoc();
+        return ceil($row['total']/4);
     }
     public function getProductID($product_id)
     {
@@ -48,7 +60,7 @@ class ProductModel {
     }
     public function getBrand($brand_id)
     {
-        $sql_brand_id = "SELECT * FROM brand ORDER BY brand_id DESC ";     
+        $sql_brand_id = "SELECT * FROM brand  ORDER BY brand_id DESC ";     
         $query = $this->mysqli->query($sql_brand_id);
         $brands = array();
         while ($row_brand = $query->fetch_assoc()){
@@ -76,7 +88,27 @@ class ProductModel {
         } 
         return $category;    
     }
+    public function editProduct($product_id, $product_name, $brand_id, $category_id, $capacity_id, $product_price, $product_price_import, $product_status, $product_sale, $product_description, $brand_name, $category_name, $capacity_name)
+    {    
+       
+            
+        $sqlUpdate = "UPDATE product SET product_name = '$product_name', product_brand= '$brand_name', product_category= '$category_name', capacity_id='$capacity_name', product_price='$product_price', product_price_import= '$product_price_import', product_status= '$product_status', product_sale= '$product_sale', product_description= '$product_description' 
+        WHERE product_id = '$product_id'";
+        mysqli_query($this->mysqli, $sqlUpdate);
     
+    }
+    public function deleteProduct($product_id)
+    {
+        $sql_delete_product = "DELETE FROM product WHERE product_id = $product_id";
+        mysqli_query($this->mysqli, $sql_delete_product);
+    }
+    public function addProduct( $product_name, $brand_id, $category_id, $capacity_id, $product_price, $product_price_import, $product_status, $product_sale, $product_description, $brand_name, $category_name, $capacity_name)
+    {
+        $sql_add_product= "INSERT INTO product (product_name, product_brand, product_category, capacity_id, product_price, product_price_import, product_status, product_sale, product_description) 
+        VALUES ('$product_name', '$brand_name', '$category_name', '$capacity_name', '$product_price', '$product_price_import', '$product_status', '$product_sale', '$product_description') ";
+        mysqli_query($this->mysqli, $sql_add_product);
+    }
+
 
     // Các phương thức hoạt động với cơ sở dữ liệu khác cho model sản phẩm
 }
