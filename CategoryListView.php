@@ -4,7 +4,7 @@
         <div class="header__list d-flex space-between align-center">
             <h3 class="card-title" style="margin: 0;">Danh mục sản phẩm</h3>
             <div class="action_group">
-                <a href="?action=category&query=category_add" class="button button-dark">Thêm danh mục</a>
+                <a href="?action=category&query=category_add_ahihi" class="button button-dark">Thêm danh mục</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                             ?>
                                 <tr>
                                     <td>
-                                        <a href="?action=category&query=category_edit&category_id=<?php echo $row['category_id'] ?>">
+                                        <a href="?action=category&query=category_edit_ahihi&category_id=<?php echo $row['category_id'] ?>">
                                             <div class="icon-edit">
                                                 <img class="w-100 h-100" src="images/icon-edit.png" alt="">
                                             </div>
