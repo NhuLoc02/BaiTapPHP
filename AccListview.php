@@ -27,7 +27,7 @@ require_once './format/format.php';
                     <table class="table table-hover table-action">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th></th> <th></th> 
                                 <th>
                                     <input type="checkbox" id="checkAll">
                                 </th>
@@ -48,15 +48,19 @@ require_once './format/format.php';
                                         <?php
                                         if (isset($_SESSION['account_type']) && $_SESSION['account_type'] == 2) {
                                         ?>
-                                            <a href="?action=account&query=account_edit&account_id=<?php echo $row['account_id'] ?>">
-                                                <div class="icon-edit">
-                                                    <img class="w-100 h-100" src="images/icon-edit.png" alt="">
-                                                </div>
-                                            </a>
+                                            
                                         <?php
                                         }
                                         ?>
                                     </td>
+                                    <td>
+                                    <a href="?action=account&query=account_edit&account_id=<?php echo $row['account_id'] ?>">
+                                                <div class="icon-edit">
+                                                    <img class="w-100 h-100" src="images/icon-edit.png" alt="">
+                                                </div>
+                                            </a>
+                                    </td>
+
                                     <td>
                                         <input type="checkbox" class="checkbox" onclick="testChecked(); getCheckedCheckboxes();" id="<?php echo $row['account_id'] ?>">
                                     </td>
