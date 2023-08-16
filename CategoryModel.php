@@ -33,6 +33,24 @@ class CategoryModel
         $sql_delete_category = "DELETE FROM category WHERE category_id = $categoryId";
         mysqli_query($this->mysqli, $sql_delete_category);
     }
+    public function getCategoryById($categoryId)
+    {
+        $sql_category_edit= "SELECT * FROM category WHERE category_id= '$categoryId' LIMIT 1 ";
+        $query_category_edit= mysqli_query($this->mysqli, $sql_category_edit);
+
+        $categories= mysqli_fetch_assoc($query_category_edit);
+        return $categories;
+    }
+    public function editCategory($categoryName)
+    {
+        $sqlUpdate= "UPDATE category SET category_name = '$categoryName' WHERE category_id= '$categoryId'";
+        mysqli_query($this->mysqli, $sqlUpdate);
+    }
+    public function addCategory($categoryName)
+    {
+        $sql_add_category= "INSERT INTO category (category_name) VALUES ('$categoryName')";
+        mysqli_query($this->mysqli, $sql_add_category);
+    }
 }
 // $categoryModel = new CategoryModel($mysqli);
 
