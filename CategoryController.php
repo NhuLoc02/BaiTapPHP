@@ -27,6 +27,32 @@ class CategoryController
     {
         global $categoryModel;
         $categoryModel->deleteCategory($categoryId);
+        echo "<script>window.location.href = '../../demo/demo/index.php?action=category&query=category_list';</script>";
+    }
+    public function editCategory() {
+        global $categoryModel;
+        if (isset($_GET['category_id'])) {
+            $categoryId = $_GET['category_id'];
+            $data = $categoryModel->getCategoryById($categoryId); // Truyền categoryId vào phương thức getCategoryById()
+    
+            if (isset($_POST['category_edit'])) {
+                $categoryName = $_POST['category_name'];
+                $categoryModel->editCategory($categoryId, $categoryName);
+                echo "<script>window.location.href = '../../demo/demo/index.php?action=category&query=category_list';</script>";
+            }
+    
+            require_once './views/BrandEditView.php';
+        }
+    }
+    public function addCategory()
+    {
+        global $categoryModel;
+        if (isset($_GET['category_add'])) {
+            $categoryName= $_POST['category_name'];
+            $categoryModel->addCategory($categoryName);
+            echo "<script>window.location.href = '../../demo/demo/index.php?action=category&query=category_list';</script>";
+        }
+        require_once './views/CategoryAddView.php';
     }
 } 
 
