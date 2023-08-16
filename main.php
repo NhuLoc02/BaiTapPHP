@@ -10,7 +10,7 @@
             $query = '';
         }
         if ($action == 'dashboard' && $query == 'dashboard') {
-            include("./modules/dashboard.php");
+            include("./views/DashBoardView.php");
         }
         elseif($action =='order' && $query == 'order_list') {
             require_once './format/format.php';
@@ -18,23 +18,16 @@
             $orderController = new OrderController();
             $orderController->orderList($orderModel);
         }
-        elseif ($action == 'order' && $query == 'order_live') {
-            include("./modules/order/donhangtructiep.php");
-        }
         elseif ($action == 'order' && $query == 'order_payment') {
             require_once './format/format.php';
             include("./controllers/OrderController.php");
             $orderController = new OrderController();
             $orderController->orderHistory();
         }
-        elseif ($action == 'order' && $query == 'order_add') {
-            include("./modules/order/them.php");
-        }
-        elseif ($action == 'order' && $query == 'order_add') {
-            include("./modules/order/them.php");
-        }
         elseif ($action == 'order' && $query == 'order_search') {
             include("./modules/order/timkiem.php");
+
+
         }
          elseif($action =='order' && $query == 'order_detail') {
             require_once './format/format.php';
@@ -54,14 +47,20 @@
             $orderController->confirmOrder($orderModel);
         }
         elseif($action =='category' && $query == 'category_add') {
-            include("./modules/category/them.php");
+            require_once ("./controllers/CategoryController.php");
+            $categoryController = new CategoryController();
+            $categoryController->addCategory($categoryId, $categoryId, '', $categoryModel);
         }
         elseif($action =='category' && $query == 'category_list') {
-            include("./modules/category/lietke.php");
+            include("./controllers/CategoryController.php");
+            $categoryController = new CategoryController();
+            $categoryController->categoryList($categoryModel);
         }
         elseif($action =='category' && $query == 'category_edit') {
-            include("./modules/category/sua.php");
-        } 
+            require_once ("./controllers/CategoryController.php");
+            $categoryController = new CategoryController();
+            $categoryController->editCategory($categoryId, $categoryName, $categoryModel);
+        }
         elseif ($action == 'category' && $query == 'category_delete') {
             require_once 'controllers/CategoryController.php';
             $categoryController = new CategoryController();
@@ -70,31 +69,18 @@
                 $categoryController->deleteCategory($categoryId);
             }
         }
-        elseif($action =='collection' && $query == 'collection_add') {
-            include("./modules/collection/them.php");
-        }
-        elseif($action =='collection' && $query == 'collection_list') {
-            include("./modules/collection/lietke.php");
-        }
-        elseif($action =='collection' && $query == 'collection_edit') {
-            include("./modules/collection/sua.php");
-        } 
         elseif($action =='product' && $query == 'product_add') {
-            include("./modules/product/them.php");
-        }
-         elseif($action =='product' && $query == 'product_list') {
             include("./controllers/ProductController.php");
             $productController = new ProductController();
-            // $productController->productList($productModel);
-            // if (isset($_GET['category_id'])) {
-            //     $category_id= $_GET['category_id'];
-            // } else {
-            //     $category_id= null;
-            // }
-            // $page= isset($_GET['pagenumber']) ? $_GET['pagenumber'] : 1;
+            $productController->addProducts();
+        
+        }
+        elseif($action =='product' && $query == 'product_list') {
+            include("./controllers/ProductController.php");
+            $productController = new ProductController();
             $productController->showProducts();
         }
-        elseif($action =='product' && $query == 'product_edit_ahihi') {
+        elseif($action =='product' && $query == 'product_edit') {
             include("./controllers/ProductController.php");
             $productController = new ProductController();
             $productController->editProduct($productModel);
@@ -111,35 +97,36 @@
             include("./modules/product/timkiem.php");
         }
         elseif($action =='product' && $query == 'product_inventory') {
-            include("./modules/product/tonkho.php");
+            include("./views/ProductTon.php");
         }
         elseif($action =='account' && $query == 'my_account') {
-            include("./modules/account/my_account.php");
+            include("./views/MyAccountView.php");
         }
         elseif($action =='account' && $query == 'password_change') {
-            include("./modules/account/password_change.php");
+            include("./modules/PasswordChange.php");
         }
-         elseif($action =='account' && $query == 'account_list') {
+        elseif($action =='account' && $query == 'account_list') {
             require_once('./controllers/AccController.php');
             $accController = new AccountController();
             $accController ->accList($accModel);
-
         }
         elseif($action =='account' && $query == 'account_edit') {
             require_once('./controllers/AccController.php');
             $accController = new AccountController();
-            $accController ->editAcc($accModel);
+            $accController ->accListId($account_id,'', $accModel);
         }
-
-         elseif($action =='article' && $query == 'article_add') {
-            require_once ("./controllers/ArticleController.php");
+        elseif ($action == 'article' && $query == 'article_add') {
+            require_once 'views/ArticleAddView.php';
+        } 
+        elseif ($action == 'article' && $query == 'article_add2') {
+        require_once 'controllers/ArticleController.php';
             $articleController = new ArticleController();
-            $articleController->addArticle($articleModel);
-        }
+            // Call the addArticle method on the created object
+            $articleController->addArticle(); }
         elseif($action =='article' && $query == 'article_list') {
             include("./controllers/ArticleController.php");
             $articleController = new ArticleController();
-            $articleController->articleList($articleModel);
+            $articleController ->articleList($articleModel);
         }
         elseif ($action == 'article' && $query == 'article_delete') {
             require_once 'controllers/ArticleController.php';
@@ -153,7 +140,7 @@
             require_once 'controllers/ArticleController.php';
             $articleController = new ArticleController(); 
         // Gọi phương thức addArticle từ đối tượng đã tạo
-            $articleController->editArticle($articleModel);
+            $articleController->editArticle();
         } 
         elseif($action =='brand' && $query == 'brand_list') {
             include("./controllers/BrandController.php");
@@ -172,25 +159,18 @@
             $brandController->editBrand($brandId, '', $brandModel);
         }
         elseif($action =='customer' && $query == 'customer_list') {
-            include("./modules/customer/lietke.php");
+            include("./controllers/CustomerController.php");
         }
         elseif($action =='inventory' && $query == 'inventory_list') {
-            include("./modules/inventory/lietke.php");
+            include("./Views/InventoryView.php");
         }
-        elseif($action =='inventory' && $query == 'inventory_add') {
-            include("./modules/inventory/them.php");
-        }
-        elseif($action =='inventory' && $query == 'inventory_detail') {
-            include("./modules/inventory/chitiet.php");
-        }
-        elseif($action =='dashboard' && $query == 'dashboard') {
-            include("./modules/dashboard.php");
-        } 
         elseif($action =='settings' && $query == 'settings') {
-            include("./modules/settings/main.php");
+            include("./public/setting.php");
         }
         else {
-            include("./modules/home.php");
+            include("./controllers/HomeController.php");
+            $controller = new DashboardController($mysqli);
+            $data = $controller->getDashboardData();
         } 
         ?>
     </div>
