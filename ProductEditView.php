@@ -1,6 +1,4 @@
-<?php
 
-?>
 <div class="row" style="margin-bottom: 10px;">
     <div class="col d-flex" style="justify-content: space-between; align-items: flex-end;">
         <h3 class="card-title">
@@ -13,8 +11,8 @@
     </div>
 </div>
 <?php foreach($products as $row) {
-?>
-    <form method="POST" action="modules/product/xuly.php?product_id=<?php echo $row['product_id'] ?>" enctype="multipart/form-data">
+?> 
+    <form method="POST" action="" enctype="multipart/form-data">
         <div class="row">
             <div class="col-lg-8 grid-margin stretch-card">
                 <div class="card">
