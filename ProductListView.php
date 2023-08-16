@@ -69,7 +69,7 @@
                             ?>
                                 <tr>
                                     <td>
-                                        <a href="?action=product&query=product_edit&product_id=<?php echo $row['product_id'] ?>">
+                                        <a href="?action=product&query=product_edit_ahihi&product_id=<?php echo $row['product_id'] ?>">
                                             <div class="icon-edit" title="Sửa sản phẩm">
                                                 <img class="w-100 h-100" src="images/icon-edit.png" alt="">
                                             </div>
@@ -91,7 +91,7 @@
                                             $rate5 = 0;
 
                                             
-                                            $rate = $row ['evaluate_rate'];
+                                            $rate = $row ['evaluate.evaluate_rate'];
 
                                                 if ($rate == 1) {
                                                     $rate1++;
@@ -156,13 +156,87 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="pagination d-flex justify-center">
+                    <!-- <?php $currentLink= $_SERVER['REQUEST_URI']; ?>
+                    <ul class="pagination__items d-flex align-center justify-center">
+                        <?php if ($page != 1) :  
+                        ?>
+                            <li class="pagination__item">
+                                <a class="d-flex align-center" href="<?php echo $currentLink ?>&pagenumber=<?php echo $i - 1 ?>">
+                                    <img src="images/arrow-left.svg" alt="">
+                                </a>
+                            </li>
+                        <?php
+                         ?>
 
-               
+                        <?php
 
+                        for ($i = 1; $i <= $totalPages; $i++) {
+                        ?>
+                            <li class="pagination__item">
+                                <a class="pagination__anchor <?php if ($page == $i) {
+                                                                    echo "active";
+                                                                } ?>" href="<?php echo $currentLink ?>&pagenumber=<?php echo $i ?>"><?php echo $i ?></a>
+                            </li>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if ($page != $totalPages) {
+                        ?>
+                            <li class="pagination__item">
+                                <a class="d-flex align-center" href="<?php echo $currentLink ?>&pagenumber=<?php echo $i + 1 ?>">
+                                    <img src="images/icon-nextlink.svg" alt="">
+                                </a>
+                            </li>
+                        <?php
+                        }
+                        ?>
+                        <?php if($page < $totalPages): ?>
+                            <li class="pagination__item">
+                <a class="d-flex align-center" href="<?php echo $currentLink ?>&pagenumber=<?php echo $page + 1 ?>">
+                    <img src="images/icon-nextlink.svg" alt="">
+                </a>
+            </li>
+        <?php endif; ?> -->
+        <?php if ($totalPages > 1) { ?>
+                <ul class="pagination__items d-flex align-center justify-center">
+                <?php if ($pageNumber != 1) { ?>
+                    <li class="pagination__item">
+                        <a class="d-flex align-center" href="?per_page=<?=$perPage?>&page=<?=$page - 1?>">
+                        <img src="images/arrow-left.svg" alt="">
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                <li class="pagination__item">
+                    <a class="pagination__anchor <?php if ($page == $i) { echo "active"; } ?>" href="?per_page=<?=$category_id?>&page=<?=$i?>"><?=$i?></a>
+                </li>
+                <?php } ?>
+
+                <?php if ($page != $totalPages) { ?>
+                <li class="pagination__item">
+                    <a class="d-flex align-center" href="?per_page=<?=$order_per_page?>&page=<?=$pageNumber + 1?>">
+                    <img src="images/icon-nextlink.svg" alt="">
+                    </a>
+                </li>
+                <?php } ?>
+                </ul>
+                <?php } elseif ($totalPages == 0) { ?>
+                <div class="w-100 text-center">
+                <p class="color-t-red">Không có đơn hàng nào cần xử lý!</p>
+            </div>
+            <?php } ?>
+
+
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="dialog__control">
     <div class="control__box">
         <a href="#" class="button__control C" onclick="return confirm('Bạn có thực sự muốn xóa sản phẩm này không?')" id="btnDelete">Xóa</a>
@@ -283,7 +357,6 @@
         });
     }
 </script>
-
 <?php
 if (isset($_GET['message']) && $_GET['message'] == 'success') {
     $message = $_GET['message'];
@@ -291,6 +364,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'success') {
     echo '   showErrorToast();';
     echo '</script>';
 }
+endif;
 ?>
 <script>
     window.history.pushState(null, "", "index.php?action=product&query=product_list");
