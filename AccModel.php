@@ -1,6 +1,6 @@
 <?php
 // models/AccountModel.php
-$mysqli = new mysqli("localhost", "root", "", "test");
+$mysqli = new mysqli("localhost", "root", "", "dbtest");
 
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -48,12 +48,13 @@ class AccountModel {
         return $accountsthree;
     }
     
-    public function editAcc($account_id, $account_name, $account_phone, $account_address, $customer_gender) {
-        $sql_update_account = "UPDATE account SET account_name = '$account_name', account_phone = '$account_phone' WHERE account_id = $account_id";
+    public function editAcc($account_id, $account_type, $account_status) {
+        $sql_update_account = "UPDATE account SET account_type= '$account_type', account_status='$account_status'  
+        WHERE account_id = $account_id";
         mysqli_query($this->mysqli, $sql_update_account);
 
-        $sql_update_customer = "UPDATE customer SET customer_name = '$account_name', customer_phone = '$account_phone', customer_gender = '$customer_gender', customer_address = '$account_address' WHERE account_id = $account_id";
-        mysqli_query($this->mysqli, $sql_update_customer);
+        // $sql_update_customer = "UPDATE customer SET customer_name = '$account_name', customer_phone = '$account_phone', customer_gender = '$customer_gender', customer_address = '$account_address' WHERE account_id = $account_id";
+        // mysqli_query($this->mysqli, $sql_update_customer);
     }
 }
 ?>
