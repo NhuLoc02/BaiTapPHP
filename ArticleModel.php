@@ -45,5 +45,10 @@ class ArticleModel
         $sql_delete_article= "DELETE FROM article WHERE article_id= $articleId";
         mysqli_query($this->mysqli, $sql_delete_article);
     }
+    public function addArticle($articleAuthor, $articleTitle, $articleSummary, $articleContent, $articleStatus)
+    {
+        $sql_article_add= "INSERT INTO article(article_author, article_title, article_summary, article_content, article_status) VALUES ('$articleAuthor', '$articleTitle', '$articleSummary', '$articleContent', '$articleStatus')";
+        mysqli_query($this->mysqli, $sql_article_add);
+    }
 }
 $articleModel= new ArticleModel($mysqli);  
