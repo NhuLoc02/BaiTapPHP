@@ -161,6 +161,14 @@
         elseif($action =='customer' && $query == 'customer_list') {
             include("./controllers/CustomerController.php");
         }
+        elseif ($action == 'customer' && $query == 'customer_delete') {
+            require_once 'controllers/customerController.php';
+            $customerController = new CustomerController();
+            $checkedIds = !empty($_GET['checked_ids']) ? json_decode($_GET['checked_ids']) : [];
+            foreach ($checkedIds as $customerId) {
+                $customerController->deletecustomer($customerId);
+            }
+        }
         elseif($action =='inventory' && $query == 'inventory_list') {
             include("./Views/InventoryView.php");
         }
