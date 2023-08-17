@@ -44,6 +44,13 @@ class BrandController
             require_once './views/BrandEditView.php';
         }
     }
+    public function deleteBrand($brandId)
+    {
+        global $brandModel;
+        $brandModel->deleteBrand($brandId);
+        echo "<script>window.location.href = '../../demo/demo/index.php?action=brand&query=brand_list';</script>";
+
+    }
         
 
 
