@@ -48,16 +48,16 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
                                 <div class="cart__quantity">
                                     <div class="cart__quantity--container d-flex align-center">
                                         <div class="select__number p-relative">
-                                            <a href="pages/handle/addtocart.php?div=<?php echo $cart_item['product_id'] ?>" class="select__number--minus cursor-pointer p-absolute d-flex align-center justify-center">
+                                            <a href="pages/handle/AddCartHandle.php?div=<?php echo $cart_item['product_id'] ?>" class="select__number--minus cursor-pointer p-absolute d-flex align-center justify-center">
                                                 <img src="./assets/images/icon/minus.svg" alt="" />
                                             </a>
                                             <input type="text" value="<?php echo $cart_item['product_quantity'] ?>" class="select__number--value heading-6 w-100 h-100" />
-                                            <a href="pages/handle/addtocart.php?sum=<?php echo $cart_item['product_id'] ?>" class="select__number--plus cursor-pointer p-absolute d-flex align-center justify-center">
+                                            <a href="pages/handle/AddCartHandle.php?sum=<?php echo $cart_item['product_id'] ?>" class="select__number--plus cursor-pointer p-absolute d-flex align-center justify-center">
                                                 <img src="./assets/images/icon/plus.svg" alt="" />
                                             </a>
                                         </div>
                                         <div class="cart__delete cursor-pointer d-flex align-center justify-center">
-                                            <a href="pages/handle/addtocart.php?delete=<?php echo $cart_item['product_id'] ?>">
+                                            <a href="pages/handle/AddCartHandle.php?delete=<?php echo $cart_item['product_id'] ?>">
                                                 <img src="./assets/images/icon/delete.svg" alt="delete" />
                                             </a>
                                         </div>
@@ -81,16 +81,16 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
                                 <div class="cart__quantity">
                                     <div class="cart__quantity--container d-flex align-center">
                                         <div class="select__number p-relative">
-                                            <a href="pages/handle/addtocart.php?div=<?php echo $cart_item['product_id'] ?>" class="select__number--minus cursor-pointer p-absolute d-flex align-center justify-center">
+                                            <a href="pages/handle/AddCartHandle.php?div=<?php echo $cart_item['product_id'] ?>" class="select__number--minus cursor-pointer p-absolute d-flex align-center justify-center">
                                                 <img src="./assets/images/icon/minus.svg" alt="" />
                                             </a>
                                             <input type="text" value="<?php echo $cart_item['product_quantity'] ?>" class="select__number--value heading-6 w-100 h-100" />
-                                            <a href="pages/handle/addtocart.php?sum=<?php echo $cart_item['product_id'] ?>" class="select__number--plus cursor-pointer p-absolute d-flex align-center justify-center">
+                                            <a href="pages/handle/AddCartHandle.php?sum=<?php echo $cart_item['product_id'] ?>" class="select__number--plus cursor-pointer p-absolute d-flex align-center justify-center">
                                                 <img src="./assets/images/icon/plus.svg" alt="" />
                                             </a>
                                         </div>
                                         <div class="cart__delete cursor-pointer d-flex align-center justify-center">
-                                            <a href="pages/handle/addtocart.php?delete=<?php echo $cart_item['product_id'] ?>">
+                                            <a href="pages/handle/AddCartHandle.php?delete=<?php echo $cart_item['product_id'] ?>">
                                                 <img src="./assets/images/icon/delete.svg" alt="delete" />
                                             </a>
                                         </div>
